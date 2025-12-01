@@ -1,6 +1,9 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
 const AddToCart = () => {
+  const selector = useSelector((state) => state.cart.value);
+  console.log(selector);
   return (
     <div className="relative cursor-pointer hover:scale-110 transition-transform duration-200">
       <svg
@@ -18,7 +21,7 @@ const AddToCart = () => {
         />
       </svg>
       <span className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold">
-        3
+        {selector}
       </span>
     </div>
   );

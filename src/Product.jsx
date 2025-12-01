@@ -1,8 +1,11 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { addItem, removeItem } from "./redux/slice";
 
 const Product = () => {
+  const dispatch = useDispatch();
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex items-center justify-center  bg-gray-100">
       <div className="flex max-w-2xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
         <div className="w-1/2">
           <img
@@ -23,8 +26,17 @@ const Product = () => {
             laboriosam consequuntur. Voluptas, eaque ipsum.
           </p>
           <div className="mt-6">
-            <button className="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+            <button
+              onClick={() => dispatch(addItem())}
+              className="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            >
               Add to Cart
+            </button>
+            <button
+              onClick={() => dispatch(removeItem())}
+              className="w-full px-4 py-2 font-bold mt-2 text-white bg-red-500 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+            >
+              remove from Cart
             </button>
           </div>
         </div>
