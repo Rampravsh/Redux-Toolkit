@@ -1,7 +1,11 @@
+import Header from "./Header";
+import Product from "./Product";
+
 function App() {
   return (
     <>
-      <h1 className="bg-amber-300">project setup</h1>
+      <Header />
+      <Product />
     </>
   );
 }
