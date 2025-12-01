@@ -1,9 +1,15 @@
-import React from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { addItem, removeItem } from "./redux/slice";
+import { fetchProducts } from "./redux/productSlice";
 
 const Product = () => {
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, []);
+  const selecter = useSelector((state) => state.Products.items);
+  console.log(selecter);
   return (
     <div className="flex items-center justify-center  bg-gray-100">
       <div className="flex max-w-2xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
