@@ -2,8 +2,8 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 const AddToCart = () => {
-  const selector = useSelector((state) => state.cart.value);
-//   console.log(selector);
+  const selector = useSelector((state) => state.cart.items.length);
+  console.log(selector);
   return (
     <div className="relative cursor-pointer hover:scale-110 transition-transform duration-200">
       <svg

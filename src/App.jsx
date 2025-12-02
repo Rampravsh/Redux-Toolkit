@@ -11,11 +11,13 @@ function App() {
         <Header />
         <button
           onClick={() => dispatch(clearAllItem())}
-          className="flex bg-red-500 text-white px-4 py-2 rounded-md m-4"
+          className="flex bg-red-500 text-white px-4 py-2 rounded-md m-20 fixed"
         >
           Clear Cart
         </button>
-        <Product />
+        <div className="mt-20">
+          <Product />
+        </div>
       </div>
     </>
   );

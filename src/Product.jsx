@@ -8,44 +8,49 @@ const Product = () => {
   useEffect(() => {
     dispatch(fetchProducts());
   }, []);
-  const selecter = useSelector((state) => state.Products.items);
-  console.log(selecter);
+  const productSelecter = useSelector((state) => state.Products.items);
+  const cartSelecter = useSelector((state) => state.cart.items);
   return (
-    <div className="flex items-center justify-center  bg-gray-100">
-      <div className="flex max-w-2xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
-        <div className="w-1/2">
-          <img
-            className="w-full h-full object-cover"
-            src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=1000&auto=format&fit=crop"
-            alt="Product Image"
-          />
-        </div>
-        <div className="w-1/2 p-6">
-          <h1 className="text-2xl font-bold text-gray-900">
-            Wireless Headphones
-          </h1>
-          <p className="mt-2 text-xl font-semibold text-gray-700">$129.99</p>
-          <p className="mt-4 text-gray-600">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum
-            voluptatibus incidunt impedit corrupti sunt minima sed tenetur,
-            commodi, accusantium praesentium minus provident maxime magnam fugit
-            laboriosam consequuntur. Voluptas, eaque ipsum.
-          </p>
-          <div className="mt-6">
-            <button
-              onClick={() => dispatch(addItem())}
-              className="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-            >
-              Add to Cart
-            </button>
-            <button
-              onClick={() => dispatch(removeItem())}
-              className="w-full px-4 py-2 font-bold mt-2 text-white bg-red-500 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
-            >
-              remove from Cart
-            </button>
-          </div>
-        </div>
+    <div className="container mx-auto px-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {productSelecter.length &&
+          productSelecter.map((item) => {
+            return (
+              <div
+                key={item.id}
+                className="bg-white rounded-lg shadow-md p-4 hover:scale-101 transition-transform duration-200"
+              >
+                <img
+                  src={item.thumbnail}
+                  alt={item.title}
+                  className="w-full h-48 object-cover rounded-t-lg"
+                />
+                <div className="p-4">
+                  <h2 className="text-lg font-bold">{item.title}</h2>
+                  <p className="text-gray-600">${item.price}</p>
+                  <p className="text-sm text-gray-500">Rating: {item.rating}</p>
+                  <p className="text-sm text-gray-700 mt-2">
+                    {item.description}
+                  </p>
+                  {cartSelecter.find((cartItem) => cartItem.id === item.id) ? (
+                    <button
+                      onClick={() => dispatch(removeItem(item))}
+                      className="bg-red-500 px-6 py-2 m-2 rounded-full  hover:bg-red-600 text-white text-center"
+                    >
+                      remove
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => dispatch(addItem(item))}
+                      className="bg-green-500 px-6 py-2 m-2 rounded-full  hover:bg-green-600 text-white text-center"
+                    >
+                      add to cart
+                    </button>
+                  )}
+                </div>
+              </div>
+            );
+          })}
       </div>
     </div>
   );
