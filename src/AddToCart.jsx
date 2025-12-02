@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const AddToCart = () => {
   const selector = useSelector((state) => state.cart.items.length);
-  console.log(selector);
+  // console.log(selector);
   return (
     <div className="relative cursor-pointer hover:scale-110 transition-transform duration-200">
       <Link to="/cart">
