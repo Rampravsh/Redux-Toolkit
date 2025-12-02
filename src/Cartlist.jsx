@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { removeItem } from "./redux/slice";
+import { clearAllItem, removeItem } from "./redux/slice";
+import { useNavigate } from "react-router-dom";
 
 const Cartlist = () => {
   const cartSelector = useSelector((state) => state.cart.items);
@@ -13,13 +14,20 @@ const Cartlist = () => {
     setCartItems(cartTempItems);
   };
   const dispatch = useDispatch();
-  useEffect(() => {}, [cartSelector]);
 
   const removeField = (item) => {
     setCartItems((cartItems) =>
       cartItems.filter((cart) => cart.id !== item.id)
     );
     dispatch(removeItem(item));
+  };
+
+  const navigate = useNavigate();
+
+  const placeOrder = () => {
+    dispatch(clearAllItem());
+    setCartItems([]);
+    // navigate("/");
   };
   return (
     <div className="container mx-auto mt-8">
@@ -60,7 +68,7 @@ const Cartlist = () => {
                   <input
                     type="number"
                     min={1}
-                    value={item.quantity}
+                    value={item.quantity ? item.quantity : 1}
                     onChange={(e) => manageQuantity(item.id, e.target.value)}
                     className="w-16 text-center border border-gray-300 rounded-md py-1 px-2 mr-4"
                   />
@@ -88,6 +96,7 @@ const Cartlist = () => {
               )
               .toFixed(2)}
           </div>
+          <button onClick={placeOrder}>Place Order</button>
         </div>
       </div>
     </div>
